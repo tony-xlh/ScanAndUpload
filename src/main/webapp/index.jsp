@@ -31,12 +31,11 @@
     <script type="text/javascript">
         var console = window['console'] ? window['console'] : { 'log': function () { } };
         Dynamsoft.DWT.RegisterEvent('OnWebTwainReady', Dynamsoft_OnReady); // Register OnWebTwainReady event. This event fires as soon as Dynamic Web TWAIN is initialized and ready to be used
-
         var DWObject;
 
         function Dynamsoft_OnReady() {
             DWObject = Dynamsoft.DWT.GetWebTwain('dwtcontrolContainer'); // Get the Dynamic Web TWAIN object that is embeded in the div with id 'dwtcontrolContainer'
-            if (DWObject) {
+            if (DWObject) {    	
                 var count = DWObject.SourceCount; // Populate how many sources are installed in the system
                 for (var i = 0; i < count; i++)
                     document.getElementById("source").options.add(new Option(DWObject.GetSourceNameItems(i), i));  // Add the sources in a drop-down list
@@ -82,7 +81,14 @@
 
         function OnServerReturnedSomething(errorCode, errorString, sHttpResponse) {
         	console.log(sHttpResponse);
-        	var response = JSON.parse(sHttpResponse);
+        	var response;
+        	try {
+        		response = JSON.parse(sHttpResponse);
+        	}
+        	catch(err) {
+        	    console.log(err);
+        	    return;
+        	}
         	if (response.status=="success"){
         		var downloadContainer = document.getElementById("downloadContainer");
         		downloadContainer.innerHTML="";
