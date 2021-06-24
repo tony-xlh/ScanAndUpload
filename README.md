@@ -1,6 +1,6 @@
-# ScanAndUpload-jsp
+# ScanAndUpload-JavaEE
 
-Scan documents and upload in JSP
+Scan documents and upload with Java EE as the backend.
 
 ![maven](https://github.com/xulihang/ScanAndUpload-jsp/actions/workflows/maven.yml/badge.svg)
 
