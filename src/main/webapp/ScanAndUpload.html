@@ -89,12 +89,12 @@
                 var strHTTPServer = location.hostname; //The name of the HTTP server. For example: "www.dynamsoft.com";
                 var CurrentPathName = unescape(location.pathname);
                 var CurrentPath = CurrentPathName.substring(0, CurrentPathName.lastIndexOf("/") + 1);
-                var strActionPage = CurrentPath + "save.jsp";
+                var endPoint = CurrentPath + "Upload";
+                console.log(endPoint);
                 DWObject.IfSSL = false; // Set whether SSL is used
                 DWObject.HTTPPort = location.port == "" ? 80 : location.port;
 
-                var Digital = new Date();
-                var uploadfilename = Digital.getMilliseconds(); // Uses milliseconds according to local time as the file name
+                var uploadfilename = getFormattedDate(); 
 
                 // Upload the image(s) to the server asynchronously
                 if (document.getElementById("imgTypejpeg").checked == true) {
@@ -104,15 +104,35 @@
                         //If so, convert the image to Gray
                         DWObject.ConvertToGrayScale(DWObject.CurrentImageIndexInBuffer);
                     //Upload image in JPEG
-                    DWObject.HTTPUploadThroughPost(strHTTPServer, DWObject.CurrentImageIndexInBuffer, strActionPage, uploadfilename + ".jpg", OnHttpUploadSuccess, OnHttpUploadFailure);
+                    DWObject.HTTPUploadThroughPost(strHTTPServer, DWObject.CurrentImageIndexInBuffer, endPoint, uploadfilename + ".jpg", OnHttpUploadSuccess, OnHttpUploadFailure);
                 }
                 else if (document.getElementById("imgTypetiff").checked == true) {
-                    DWObject.HTTPUploadAllThroughPostAsMultiPageTIFF(strHTTPServer, strActionPage, uploadfilename + ".tif", OnHttpUploadSuccess, OnHttpUploadFailure);
+                    DWObject.HTTPUploadAllThroughPostAsMultiPageTIFF(strHTTPServer, endPoint, uploadfilename + ".tif", OnHttpUploadSuccess, OnHttpUploadFailure);
                 }
                 else if (document.getElementById("imgTypepdf").checked == true) {
-                    DWObject.HTTPUploadAllThroughPostAsPDF(strHTTPServer, strActionPage, uploadfilename + ".pdf", OnHttpUploadSuccess, OnHttpUploadFailure);
+                    DWObject.HTTPUploadAllThroughPostAsPDF(strHTTPServer, endPoint, uploadfilename + ".pdf", OnHttpUploadSuccess, OnHttpUploadFailure);
                 }
             }
+        }
+        
+        function getFormattedDate() {
+            var date = new Date();
+
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            var hour = date.getHours();
+            var min = date.getMinutes();
+            var sec = date.getSeconds();
+
+            month = (month < 10 ? "0" : "") + month;
+            day = (day < 10 ? "0" : "") + day;
+            hour = (hour < 10 ? "0" : "") + hour;
+            min = (min < 10 ? "0" : "") + min;
+            sec = (sec < 10 ? "0" : "") + sec;
+
+            var str = date.getFullYear().toString() + month + day + hour + min + sec;
+
+            return str;
         }
     </script>
 </body>

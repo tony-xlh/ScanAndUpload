@@ -9,4 +9,13 @@
        <param-name>file-upload</param-name> 
        <param-value>D:\uploaded\</param-value> 
     </context-param>
+  <servlet>
+    <servlet-name>Upload</servlet-name>
+    <servlet-class>com.dynamsoft.Upload</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Upload</servlet-name>
+    <url-pattern>/Upload</url-pattern>
+  </servlet-mapping>
 </web-app>
