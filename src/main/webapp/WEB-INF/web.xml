@@ -15,8 +15,18 @@
   	<description></description>
   	<servlet-class>com.dynamsoft.Upload</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>Get</servlet-name>
+  	<display-name>Get</display-name>
+  	<description></description>
+  	<servlet-class>com.dynamsoft.Get</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>Upload</servlet-name>
   	<url-pattern>/Upload</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Get</servlet-name>
+  	<url-pattern>/Get</url-pattern>
   </servlet-mapping>
 </web-app>

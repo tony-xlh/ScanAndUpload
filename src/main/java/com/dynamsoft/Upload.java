@@ -31,10 +31,11 @@ public class Upload extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String contentType = request.getContentType();
 	    if (contentType.contains("multipart/form-data")) {
-	        String filePath = getServletContext().getInitParameter("file-upload");
+	        String uploadedDir = getServletContext().getInitParameter("file-upload");
 	        Part filePart = request.getPart("RemoteFile");
-	        File output = new File(filePath + filePart.getSubmittedFileName());
-	        System.out.println(filePath + filePart.getSubmittedFileName());
+	        String fileName = filePart.getSubmittedFileName();
+	        File output = new File(uploadedDir + fileName);
+	        System.out.println(uploadedDir + filePart.getSubmittedFileName());
 	        OutputStream outStream = new FileOutputStream(output);
 	        
 	        InputStream in = filePart.getInputStream();
@@ -43,6 +44,8 @@ public class Upload extends HttpServlet {
 	        filePart.getInputStream().read(buffer);
 	        outStream.write(buffer);
 	        outStream.close();
+	        response.setContentType("application/json");
+	        response.getWriter().write("{\"status\": \"success\",\"filename\": \""+ fileName +"\"}");
 	    } else {
 	    	response.sendError(500, "Only multipart/form-data supported");
 	    }
