@@ -1,4 +1,4 @@
-# ScanAndUpload-JavaEE
+# ScanAndUpload
 
 ![maven](https://github.com/xulihang/ScanAndUpload-jsp/actions/workflows/maven.yml/badge.svg) ![.net](https://github.com/xulihang/ScanAndUpload-jsp/actions/workflows/msbuild.yml/badge.svg)
 
@@ -8,4 +8,5 @@ Platforms:
 
 * Java EE
 * Asp.Net (.Net Framework)
+* Python + Flask
 
